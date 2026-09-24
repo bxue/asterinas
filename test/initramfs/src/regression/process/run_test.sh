@@ -44,6 +44,7 @@ fi
 
 ./pthread/pthread_signal_test
 ./pthread/pthread_test
+./pthread/set_robust_list
 
 ./ptrace/ptrace
 ./ptrace/set_options
