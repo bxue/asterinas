@@ -8,6 +8,18 @@
 }:
 
 let
+  # The coreutils in the pinned nixpkgs is 9.11, whose `tee` truncates its
+  # output; the blocklisted cases below depend on the fix in 9.12.
+  coreutils = pkgs.coreutils.overrideAttrs (
+    finalAttrs: previousAttrs: {
+      version = "9.12";
+      src = pkgs.fetchurl {
+        url = "mirror://gnu/coreutils/coreutils-${finalAttrs.version}.tar.xz";
+        hash = "sha256-pIAZhVlzPps9qZnpBUOsb4iKLKpUTY1mTFofF+Uo4hA=";
+      };
+    }
+  );
+
   runtimeDeps = with pkgs; [
     perl
     coreutils
